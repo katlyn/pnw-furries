@@ -4,7 +4,7 @@ import env from './env'
 
 const client = new InteractionCommandClient(env.token.reveal(), {
   gateway: {
-    intents: GatewayIntents.GUILDS | GatewayIntents.GUILD_MEMBERS
+    intents: GatewayIntents.GUILDS | GatewayIntents.GUILD_MEMBERS | GatewayIntents.GUILD_MESSAGES
   }
 })
 
