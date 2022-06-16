@@ -1,8 +1,9 @@
-import { secret, strictVerify } from 'env-verifier'
+import { secret, strictVerify, transform } from 'env-verifier'
 
 const env = strictVerify({
   token: secret('DISCORD_TOKEN'),
   channels: {
+    autoThreadingChannels: transform('AUTO_THREADING_CHANNELS', s => s.split(',').map(v => v.trim())),
     welcome: 'CHANNEL_WELCOME'
   },
   roles: {
