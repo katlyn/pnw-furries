@@ -13,10 +13,11 @@ process.on("SIGTERM", () => {
   })
 
 ;(async () => {
-  await events.init(client)
+  events.init(client)
 
   await client.once("ready", () => {
     console.log(`Connected to Discord as ${client.user.tag ?? "unknown application"}. Using ${client.shards.size} shards.`)
   })
     .connect()
 })()
+  .catch(console.error)

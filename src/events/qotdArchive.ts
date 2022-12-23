@@ -4,7 +4,7 @@ import env from "../config/env"
 
 const ARCHIVE_INTERVAL = 60 * 1000
 
-const init = async (client: Client): Promise<void> => {
+const init = (client: Client): void => {
   // Convert max age from minutes to ms
   const maxInactiveTime = env.qotd.maxAge * 60 * 1000
 
@@ -13,7 +13,7 @@ const init = async (client: Client): Promise<void> => {
     const now = new Date()
 
     // Since threads aren't cached how we'd expect, fetch the active threads for each guild and iterate over the results
-    for (const [ _, guild ] of client.guilds) {
+    for await (const [ _, guild ] of client.guilds) {
 
       const activeThreads = await guild.getActiveThreads()
 
@@ -34,7 +34,7 @@ const init = async (client: Client): Promise<void> => {
         // If the thread has been inactive longer than the allowed time, archive it.
         if (timeSinceActive > maxInactiveTime) {
           console.log(`[QOTD Archive] Archived ${thread.name} (${thread.id})`)
-          await thread.edit({
+          void thread.edit({
             archived: true
           })
         }
