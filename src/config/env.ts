@@ -1,12 +1,12 @@
-import { secret, strictVerify } from 'env-verifier'
+import { secret, strictVerify } from "env-verifier"
 
 const env = strictVerify({
-  token: secret('DISCORD_TOKEN'),
+  token: secret("DISCORD_TOKEN"),
   channels: {
-    welcome: 'CHANNEL_WELCOME'
+    welcome: "CHANNEL_WELCOME"
   },
   roles: {
-    member: 'ROLE_MEMBER'
+    member: "ROLE_MEMBER"
   }
 })
 

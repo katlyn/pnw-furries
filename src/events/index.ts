@@ -1,10 +1,11 @@
-import { ClusterClient, ShardClient } from 'detritus-client'
-import guildCreate from './guildCreate'
-import memberVerified from './memberVerified'
+import { Client } from "oceanic.js"
 
-const init = (bot: ClusterClient|ShardClient): void => {
-  guildCreate.init(bot)
-  memberVerified.init(bot)
+import guildCreate from "./guildCreate"
+import memberVerified from "./memberVerified"
+
+const init = (client: Client): void => {
+  guildCreate.init(client)
+  memberVerified.init(client)
 }
 
 export default {

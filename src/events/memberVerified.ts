@@ -1,15 +1,18 @@
-import { ClusterClient, ShardClient } from 'detritus-client'
-import { ClientEvents } from 'detritus-client/lib/constants'
-import env from '../config/env'
+import { Client } from "oceanic.js"
 
-const init = (bot: ClusterClient|ShardClient): void => {
-  bot.on(ClientEvents.GUILD_MEMBER_UPDATE, async ({ old, member }) => {
+import env from "../config/env"
+
+const init = (client: Client): void => {
+  client.on("guildMemberUpdate", async (member, old) => {
     if (old === null) {
-      // We don't have them chached, can't determine their verification
+      // We don't have them cached, can't determine their verification. guildCreate.ts caches all members on startup to
+      // try to alleviate this.
       return
     }
-    if (!old.roles.has(env.roles.member) && member.roles.has(env.roles.member)) {
-      await bot.rest.createMessage(env.channels.welcome, `${member.mention} has been verified!`)
+    if (!old.roles.includes(env.roles.member) && member.roles.includes(env.roles.member)) {
+      await client.rest.channels.createMessage(env.channels.welcome, {
+        content: `${member.mention} has been verified!`
+      })
     }
   })
 }
