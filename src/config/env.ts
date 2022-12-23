@@ -9,7 +9,7 @@ const env = strictVerify({
     member: "ROLE_MEMBER"
   },
   qotd: {
-    channels: transform("QOTD_CHANNELS",v => v.split(/(,\w*)/)),
+    channels: transform("QOTD_CHANNELS",v => v.split(/,\s*/)),
     maxAge: transform("QOTD_MAX_AGE", Number)
   }
 })
