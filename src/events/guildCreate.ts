@@ -1,10 +1,11 @@
-import { ClusterClient, ShardClient } from 'detritus-client'
-import { ClientEvents } from 'detritus-client/lib/constants'
+import { Client } from "oceanic.js"
 
-const init = (bot: ClusterClient|ShardClient): void => {
-  bot.on(ClientEvents.GUILD_CREATE, g => {
-    void g.guild.requestMembers({ limit: 0, query: '' })
-      .then(() => console.log(`Cached members from ${g.guild.id}`))
+const init = (bot: Client): void => {
+  bot.once("ready", () => {
+    bot.guilds.forEach(async g => {
+      await g.fetchMembers()
+      console.log(`Cached members from ${g.name} (${g.id})`)
+    })
   })
 }
 

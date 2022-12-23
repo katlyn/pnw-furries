@@ -1,21 +1,22 @@
-import { ClusterClient } from 'detritus-client'
-import 'source-map-support/register'
+import client from "./config/client"
+import events from "./events/index"
 
-import bot from './config/bot'
-import events from './events'
 
-(async () => {
-  // Exit (somewhat) gracefully
-  process.on('SIGTERM', () => {
-    bot.kill()
+// Exit (somewhat) gracefully
+process.on("SIGTERM", () => {
+  client.disconnect(false)
+}).on("unhandledRejection", (err, promise) => {
+  console.error("Unhandled Rejection:", err, promise)
+})
+  .on("uncaughtException", err => {
+    console.error("Uncaught Exception:", err)
   })
 
-  events.init(bot.client)
+;(async () => {
+  await events.init(client)
 
-  await bot.addMultipleIn('commands')
-  const cluster = await bot.run() as ClusterClient
-
-  const shard = cluster.shards.first()
-  console.log(`Connected to Discord as ${shard?.application?.name ?? 'unknown application'}. Using ${cluster.shardCount} shards.`)
+  await client.once("ready", () => {
+    console.log(`Connected to Discord as ${client.user.tag ?? "unknown application"}. Using ${client.shards.size} shards.`)
+  })
+    .connect()
 })()
-  .catch(console.error)
