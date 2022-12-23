@@ -10,6 +10,7 @@ const init = (client: Client): void => {
       return
     }
     if (!old.roles.includes(env.roles.member) && member.roles.includes(env.roles.member)) {
+      console.log(`[Member Welcome] ${member.tag} (${member.id}) has been approved.`)
       await client.rest.channels.createMessage(env.channels.welcome, {
         content: `${member.mention} has been verified!`
       })
