@@ -5,12 +5,9 @@ import events from "./events/index"
 // Exit (somewhat) gracefully
 process.on("SIGTERM", () => {
   client.disconnect(false)
-}).on("unhandledRejection", (err, promise) => {
-  console.error("Unhandled Rejection:", err, promise)
 })
-  .on("uncaughtException", err => {
-    console.error("Uncaught Exception:", err)
-  })
+// FIXME: Errors and unhandled rejections still need to be caught and handled gracefully. For now, we're just letting
+//  the bot crash.
 
 ;(async () => {
   events.init(client)
