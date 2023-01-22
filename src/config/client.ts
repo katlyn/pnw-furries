@@ -5,7 +5,7 @@ import env from "./env"
 const client = new Client({
   auth: `Bot ${env.token.reveal()}`,
   gateway: {
-    intents: [ "GUILDS", "GUILD_MEMBERS" ]
+    intents: [ "GUILDS", "GUILD_MEMBERS", "GUILD_MESSAGES", "MESSAGE_CONTENT" ]
   }
 })
 
