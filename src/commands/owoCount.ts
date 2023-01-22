@@ -6,7 +6,7 @@ import InteractionHandler, { InteractionCommand } from "../util/interactionHandl
 
 class OwoCount extends InteractionCommand {
   description = ""
-  name = "owocount"
+  name = "Get owo count"
   type = ApplicationCommandTypes.USER
 
   async run (interaction: CommandInteraction) {
