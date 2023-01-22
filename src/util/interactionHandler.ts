@@ -89,8 +89,8 @@ export default class InteractionHandler {
         await client.application.bulkEditGlobalCommands(commands)
       }
     } catch (err) {
-      console.log("Command registration error, index list:")
-      console.log(commands.map((c, i) => `${i}: ${c.name}`).join("\n"))
+      console.error("Command registration error, index list:")
+      console.error(commands.map((c, i) => `${i}: ${c.name}`).join("\n"))
       throw err
     }
     console.log("[InteractionHandler] Successfully synced commands")

@@ -4,7 +4,7 @@ const init = (client: Client): void => {
   client.once("ready", () => {
     client.guilds.forEach(async g => {
       await g.fetchMembers()
-      console.log(`Cached members from ${g.name} (${g.id})`)
+      console.log(`[Member cache] Cached members from ${g.name} (${g.id})`)
     })
   })
 }
