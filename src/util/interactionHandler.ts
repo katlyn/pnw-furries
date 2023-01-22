@@ -49,16 +49,21 @@ class EmptyCommand extends InteractionCommand {
   name = "empty"
   type = ApplicationCommandTypes.CHAT_INPUT
 
-  run () {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  run (interaction: CommandInteraction) {
     throw new Error("This command is empty.")
   }
 }
 
 export default class InteractionHandler {
-  static commands = new Map<string, InteractionCommand>()
+  static commands = {
+    [ApplicationCommandTypes.CHAT_INPUT]: new Map<string, InteractionCommand>(),
+    [ApplicationCommandTypes.USER]: new Map<string, InteractionCommand>(),
+    [ApplicationCommandTypes.MESSAGE]: new Map<string, InteractionCommand>()
+  }
 
   static async handle (client: Client, interaction: CommandInteraction) {
-    const command = this.commands.get(interaction.data.name)
+    const command = this.commands[interaction.data.type].get(interaction.data.name)
     await (command ? command.run.call(client, interaction) : interaction.createMessage({
       content: "I couldn't figure out how to execute that command.",
       flags: MessageFlags.EPHEMERAL
@@ -67,7 +72,7 @@ export default class InteractionHandler {
 
   static register (CommandClass: typeof EmptyCommand) {
     const command = new CommandClass()
-    this.commands.set(command.name, command)
+    this.commands[command.type].set(command.name, command)
   }
 
   static async sync (client: Client) {
@@ -88,9 +93,14 @@ export default class InteractionHandler {
       console.log(commands.map((c, i) => `${i}: ${c.name}`).join("\n"))
       throw err
     }
+    console.log("[InteractionHandler] Successfully synced commands")
   }
 
   static toJSON () {
-    return Array.from(this.commands.values()).map(command => command.toJSON())
+    return [
+      ...Array.from(this.commands[ApplicationCommandTypes.CHAT_INPUT].values()),
+      ...Array.from(this.commands[ApplicationCommandTypes.USER].values()),
+      ...Array.from(this.commands[ApplicationCommandTypes.MESSAGE].values()),
+    ].map(command => command.toJSON())
   }
 }
