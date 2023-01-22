@@ -1,3 +1,4 @@
+import commands from "./commands"
 import client from "./config/client"
 import events from "./events/index"
 
@@ -10,6 +11,7 @@ process.on("SIGTERM", () => {
 //  the bot crash.
 
 ;(async () => {
+  commands.init()
   events.init(client)
 
   await client.once("ready", () => {
