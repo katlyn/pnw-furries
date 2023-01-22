@@ -2,8 +2,8 @@ import { Client } from "oceanic.js"
 
 import prisma from "../config/prisma"
 
-const owoCheck = /(?:^|\s)((?:\(\s?)?[oòóõō0°][wω][oòóõō0°](?:\s?\)|[~;:'"]+)?)(?=[\s.!-]|$)/gi
-const uwuCheck = /(?:^|\s)((?:\(\s?)?[uùúũū]w[uùúũū](?:\s?\)|[~;:'"]+)?)(?=[\s.!-]|$)/gi
+const owoCheck = /(?:^|\s)((?:\(\s?)?[oòóõō0°][wω][oòóõō0°](?:\s?\)|[~;:'"]+)?)(?=[\s.!?-]|$)/gi
+const uwuCheck = /(?:^|\s)((?:\(\s?)?[uùúũū][wω][uùúũū](?:\s?\)|[~;:'"]+)?)(?=[\s.!?-]|$)/gi
 
 const init = (client: Client): void => {
   client.on("messageCreate", async message => {
