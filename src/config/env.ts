@@ -3,13 +3,14 @@ import { secret, strictVerify, transform } from "env-verifier"
 const env = strictVerify({
   token: secret("DISCORD_TOKEN"),
   channels: {
-    welcome: "CHANNEL_WELCOME"
+    welcome: "CHANNEL_WELCOME",
+    bot: "CHANNEL_BOT"
   },
   roles: {
     member: "ROLE_MEMBER"
   },
   qotd: {
-    channels: transform("QOTD_CHANNELS",v => v.split(/,\s*/)),
+    channels: transform("QOTD_CHANNELS", v => v.split(/,\s*/)),
     maxAge: transform("QOTD_MAX_AGE", Number)
   }
 })

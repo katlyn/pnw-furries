@@ -1,5 +1,6 @@
 import { ApplicationCommandTypes, CommandInteraction, MessageFlags } from "oceanic.js"
 
+import env from "../config/env"
 import prisma from "../config/prisma"
 import { isUser } from "../util/guards"
 import InteractionHandler, { InteractionCommand } from "../util/interactionHandler"
@@ -23,14 +24,21 @@ class OwoCount extends InteractionCommand {
       }
     })
 
+    let channelMessage = ""
+    if (interaction.channelID !== env.channels.bot) {
+      channelMessage = `\nWant this message to be visible by everyone? Use the command in <#${env.channels.bot}>!`
+    }
+
     if (userData == null) {
       await interaction.createMessage({
-        content: `${interaction.data.target.mention} has never said owo or uwu! Are they really even a furry?`
+        content: `${interaction.data.target.mention} has never said owo or uwu! Are they really even a furry?${channelMessage}`,
+        flags: interaction.channelID !== env.channels.bot ? MessageFlags.EPHEMERAL : 0
       })
     } else {
       await interaction.createMessage({
-        content: `${interaction.data.target.mention} has owo'd ${userData.owos} times and uwu'd ${userData.uwus} times.`,
-        allowedMentions: { users: false }
+        content: `${interaction.data.target.mention} has owo'd ${userData.owos} times and uwu'd ${userData.uwus} times.${channelMessage}`,
+        allowedMentions: { users: false },
+        flags: interaction.channelID !== env.channels.bot ? MessageFlags.EPHEMERAL : 0
       })
     }
   }
