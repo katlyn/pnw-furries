@@ -37,7 +37,6 @@ class OwoCount extends InteractionCommand {
     } else {
       await interaction.createMessage({
         content: `${interaction.data.target.mention} has owo'd ${userData.owos} times and uwu'd ${userData.uwus} times.${channelMessage}`,
-        allowedMentions: { users: false },
         flags: interaction.channelID !== env.channels.bot ? MessageFlags.EPHEMERAL : 0
       })
     }
