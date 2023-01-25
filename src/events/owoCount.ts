@@ -7,6 +7,11 @@ const uwuCheck = /(?:^|\s)((?:\(\s?)?[uùúũū][wω][uùúũū](?:\s?\)|[~;:'"]
 
 const init = (client: Client): void => {
   client.on("messageCreate", async message => {
+    if (message.guildID == null || message.author.bot) {
+      // Don't track DMs or bots
+      return
+    }
+
     const owos = message.content.match(owoCheck) ?? []
     const uwus = message.content.match(uwuCheck) ?? []
 
