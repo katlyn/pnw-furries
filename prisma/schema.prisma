@@ -17,3 +17,7 @@ model User {
   owos      Int      @default(0)
   uwus      Int      @default(0)
 }
+
+model IntroMessage {
+  id BigInt @id
+}
