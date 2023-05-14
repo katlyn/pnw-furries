@@ -3,8 +3,9 @@ import { secret, strictVerify, transform } from "env-verifier"
 const env = strictVerify({
   token: secret("DISCORD_TOKEN"),
   channels: {
-    welcome: "CHANNEL_WELCOME",
-    bot: "CHANNEL_BOT"
+    bot: "CHANNEL_BOT",
+    introduction: "CHANNEL_INTRODUCTION",
+    welcome: "CHANNEL_WELCOME"
   },
   roles: {
     member: "ROLE_MEMBER"

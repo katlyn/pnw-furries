@@ -7,6 +7,9 @@ import events from "./events/index"
 process.on("SIGTERM", () => {
   client.disconnect(false)
 })
+client.on("error", () => {
+  client.disconnect(false)
+})
 // FIXME: Errors and unhandled rejections still need to be caught and handled gracefully. For now, we're just letting
 //  the bot crash.
 
