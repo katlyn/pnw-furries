@@ -1,4 +1,4 @@
-FROM node:19-alpine
+FROM node:20-alpine
 WORKDIR /usr/build
 COPY tsconfig.json package.json package-lock.json /usr/build/
 RUN npm ci
