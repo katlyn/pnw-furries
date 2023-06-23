@@ -12,20 +12,20 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^18.11.17",
+    "@types/node": "^20.3.1",
     "@typescript-eslint/eslint-plugin": "^5.45.1",
     "@typescript-eslint/parser": "^5.45.1",
     "eslint": "^8.28.0",
     "eslint-plugin-simple-import-sort": "^8.0.0",
     "eslint-plugin-unused-imports": "^2.0.0",
-    "prisma": "^4.14.0",
+    "prisma": "^4.16.1",
     "typescript": "^4.5.5"
   },
   "dependencies": {
     "@oceanicjs/builders": "^1.1.7",
-    "@prisma/client": "^4.14.0",
+    "@prisma/client": "^4.16.1",
     "env-verifier": "^1.5.0",
-    "oceanic.js": "^1.6.0",
+    "oceanic.js": "^1.7.1",
     "source-map-support": "^0.5.21"
   }
 }
