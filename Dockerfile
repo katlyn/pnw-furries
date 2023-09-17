@@ -5,11 +5,18 @@ RUN npm ci
 COPY ./src /usr/build/src/
 RUN npm run build
 
-FROM node:19-alpine
-WORKDIR /usr/bot
-COPY package.json package-lock.json /usr/bot/
-COPY prisma prisma
+FROM node:20-alpine
+ENV DOCKER=TRUE
+RUN apk --no-cache add curl
+
+WORKDIR /usr/src/pnw-furs
+COPY package.json package-lock.json /usr/src/pnw-furs/
+
+COPY prisma /usr/src/pnw-furs/prisma/
 RUN npm ci && npx prisma generate
-COPY --from=0 /usr/build/dist /usr/bot/dist
+
+COPY --from=0 /usr/build/dist /usr/src/pnw-furs/dist/
+
+HEALTHCHECK CMD curl -f http://localhost:3621/
 
 CMD [ "npm", "run", "start" ]

@@ -5,7 +5,7 @@ import env from "../config/env"
 const init = (client: Client): void => {
   client.on("guildMemberUpdate", async (member, old) => {
     if (old === null) {
-      // We don't have them cached, can't determine their verification. guildCreate.ts caches all members on startup to
+      // We don't have them cached, can't determine their verification. ready.ts caches all members on startup to
       // try to alleviate this.
       return
     }
