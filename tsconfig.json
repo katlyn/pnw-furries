@@ -2,9 +2,9 @@
   "compilerOptions": {
     "module": "commonjs",
     "esModuleInterop": true,
-    "target": "es6",
+    "target": "esnext",
     "noImplicitAny": true,
-    "moduleResolution": "node",
+    "moduleResolution": "node16",
     "sourceMap": true,
     "outDir": "dist",
     "baseUrl": ".",
