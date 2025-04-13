@@ -12,21 +12,30 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^20.6.2",
-    "@typescript-eslint/eslint-plugin": "^5.45.1",
-    "@typescript-eslint/parser": "^5.45.1",
-    "eslint": "^8.28.0",
-    "eslint-plugin-simple-import-sort": "^8.0.0",
-    "eslint-plugin-unused-imports": "^2.0.0",
-    "prisma": "^4.16.1",
-    "typescript": "^4.5.5"
+    "@types/node": "^22.14.1",
+    "@typescript-eslint/eslint-plugin": "^8.29.1",
+    "@typescript-eslint/parser": "^8.29.1",
+    "eslint": "^9.24.0",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "eslint-plugin-unused-imports": "^4.1.4",
+    "prisma": "^6.6.0",
+    "typescript": "^5.8.3"
   },
   "dependencies": {
     "@oceanicjs/builders": "^1.1.7",
-    "@prisma/client": "^4.16.1",
+    "@prisma/client": "^6.6.0",
     "@uwu-codes/status-server": "^1.0.1",
     "env-verifier": "^1.5.0",
     "oceanic.js": "^1.8.0",
     "source-map-support": "^0.5.21"
+  },
+  "packageManager": "pnpm@10.6.2+sha512.47870716bea1572b53df34ad8647b42962bc790ce2bf4562ba0f643237d7302a3d6a8ecef9e4bdfc01d23af1969aa90485d4cebb0b9638fa5ef1daef656f6c1b",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@prisma/client",
+      "@prisma/engines",
+      "esbuild",
+      "prisma"
+    ]
   }
 }

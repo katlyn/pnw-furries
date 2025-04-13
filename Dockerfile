@@ -1,22 +1,24 @@
-FROM node:20-alpine
-WORKDIR /usr/build
-COPY tsconfig.json package.json package-lock.json /usr/build/
-RUN npm ci
-COPY ./src /usr/build/src/
-RUN npm run build
+FROM node:22-alpine AS base
+RUN corepack enable
 
-FROM node:20-alpine
+FROM base AS build
+WORKDIR /usr/build
+COPY tsconfig.json package.json pnpm-lock.yaml /usr/build/
+RUN pnpm i --frozen-lockfile
+COPY ./src /usr/build/src/
+RUN pnpm build
+
+FROM base
 ENV DOCKER=TRUE
 RUN apk --no-cache add curl
 
 WORKDIR /usr/src/pnw-furs
-COPY package.json package-lock.json /usr/src/pnw-furs/
+COPY package.json pnpm-lock.yaml prisma /usr/src/pnw-furs/
 
-COPY prisma /usr/src/pnw-furs/prisma/
-RUN npm ci && npx prisma generate
+RUN pnpm i --prod --frozen-lockfile && pnpx prisma generate
 
-COPY --from=0 /usr/build/dist /usr/src/pnw-furs/dist/
+COPY --from=build /usr/build/dist /usr/src/pnw-furs/dist/
 
 HEALTHCHECK CMD curl -f http://localhost:3621/
 
-CMD [ "npm", "run", "start" ]
+CMD [ "pnpm", "start" ]
